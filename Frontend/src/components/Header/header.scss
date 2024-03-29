@@ -1,0 +1,19 @@
+header{
+
+    nav{
+
+        #nav-link:hover{
+            color: blue;
+
+            div{
+               background-color: rgb(235, 246, 250);
+            }
+
+            svg path{
+                fill: blue;
+            }
+
+        }
+       
+    }
+}

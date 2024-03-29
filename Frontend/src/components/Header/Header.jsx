@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
+import "./header.scss";
 
 function Header() {
   return (
-    <>
-      <nav className="py-4 px-16 flex gap-8">
-        <Link href="/">
+    <header>
+      <nav className="py-4 px-24 flex gap-8">
+        <Link href="/" >
           <svg
             height="30"
             viewBox="0 0 36.289 20.768"
@@ -14,12 +15,12 @@ function Header() {
             <path d="M18.9 20.77V0h4.93v20.77zM0 10.39a8.56 8.56 0 1 1 8.56 8.56A8.56 8.56 0 0 1 0 10.4zm5.97-.01a2.6 2.6 0 1 0 2.6-2.6 2.6 2.6 0 0 0-2.6 2.6zm27 5.2l-1.88-1.87-1.87 1.88H25.9V12.3l1.9-1.9-1.9-1.89V5.18h3.27l1.92 1.92 1.93-1.92h3.27v3.33l-1.9 1.9 1.9 1.9v3.27z"></path>
           </svg>
         </Link>
-        <Link to="/motors" className="flex items-center gap-2 hover:text-blue-400">
+        <Link to="/motors" id="nav-link" className="route-link flex items-center gap-2">
           <div className="p-2 rounded-full bg-gray-200">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
+              width="20"
+              height="20"
               viewBox="0 0 24 24"
               className="_3b2d77d8"
               alt="OLX Motors"
@@ -28,14 +29,14 @@ function Header() {
               <path d="M4.54 12.08a1.8 1.8 0 1 0 0 3.6 1.8 1.8 0 0 0 0-3.6zm0 2.46a.65.65 0 1 1 0-1.3.65.65 0 0 1 0 1.3zm14.57-2.46a1.8 1.8 0 1 0 0 3.6 1.8 1.8 0 0 0 0-3.6zm0 2.46a.65.65 0 1 1 0-1.3.65.65 0 0 1 0 1.3zm-11.71.28h8.96v1.15H7.4v-1.15z"></path>
             </svg>
           </div>
-          <h2 className="font-bold">Motors</h2>
+          <h2 className="font-bold text-sm">Motors</h2>
         </Link>
-        <Link to="/property" className="flex gap-4">
-          <div>
+        <Link to="/property" id="nav-link" className="route-link flex items-center gap-2">
+          <div className="p-2 rounded-full bg-gray-200">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
+              width="20"
+              height="20"
               viewBox="0 0 24 24"
               className="_3b2d77d8"
               alt="OLX Property"
@@ -44,10 +45,10 @@ function Header() {
               <path d="M7.98 4.37h2.42v1.21H7.98v-1.2zm-3.63 0h2.42v1.21H4.35v-1.2zM7.98 6.8h2.42V8H7.98V6.8zm-3.63 0h2.42V8H4.35V6.8zm3.63 3.62h2.42v1.21H7.98v-1.2zm-3.63 0h2.42v1.21H4.35v-1.2zm3.63 2.42h2.42v1.21H7.98v-1.2zm-3.63 0h2.42v1.21H4.35v-1.2zm3.63 3.63h2.42v1.21H7.98v-1.2zm-3.63 0h2.42v1.21H4.35v-1.2zm13.31-6.05h1.21v1.21h-1.2v-1.2zm-2.42 0h1.21v1.21h-1.2v-1.2zm2.42 2.42h1.21v1.21h-1.2v-1.2zm-2.42 0h1.21v1.21h-1.2v-1.2zm2.42 3.63h1.21v1.21h-1.2v-1.2zm-2.42 0h1.21v1.21h-1.2v-1.2z"></path>
             </svg>
           </div>
-          <h2 className="font-bold">Property</h2>
+          <h2 className="font-bold text-sm">Property</h2>
         </Link>
       </nav>
-    </>
+    </header>
   );
 }
 
