@@ -1,13 +1,10 @@
 
 function Footer() {
   return (
-    <div id="footer">
+    <div>
       <div id="sub-footer">
         <div>
-          <img src="/public/assets/olx-footer" alt="app-img" />
-        </div>
-        <div>
-          <h1>TRY THE OLX APP</h1>
+          <img src="./olx-footer.png" alt="img" />
         </div>
       </div>
     </div>
