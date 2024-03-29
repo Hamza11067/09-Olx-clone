@@ -3,8 +3,8 @@ import "./header.scss";
 
 function Header() {
   return (
-    <header className="px-24">
-      <nav className="py-3  flex gap-8">
+    <header className="px-8 sticky">
+      <nav className="py-4  flex gap-8">
         <Link href="/">
           <svg
             height="30"
