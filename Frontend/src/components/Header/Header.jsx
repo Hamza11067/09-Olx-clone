@@ -105,9 +105,9 @@ function Header() {
         </div>
         <Link
           to="/login"
-          className="col-span-1 ml-4 font-bold underline hover:no-underline"
+          className="col-span-1 text-center font-bold underline hover:no-underline"
         >
-          Login
+          <p>Login</p>
         </Link>
         <Link
           to="/sell"
