@@ -111,9 +111,9 @@ function Header() {
         </Link>
         <Link
           to="/sell"
-          className="col-span-1 font-bold flex items-center px-2  rounded-full border-4 border-blue-400"
+          className="col-span-1  font-bold flex items-center px-2  rounded-full border-4 border-blue-400"
         >
-          <span className="text-2xl -mt-1">+ </span> &nbsp;
+          <span className="text-2xl -mt-[6px]">&nbsp;+&nbsp;</span> 
           <p className="text-sm">SELL</p>
         </Link>
       </div>
