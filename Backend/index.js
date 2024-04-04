@@ -24,7 +24,8 @@ app.post("/signup", (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
   const user = new Users({ username: username, password: password });
-  user.save()
+  user
+    .save()
     .then(() => {
       res.send({ message: "User saved successfully" });
     })
@@ -33,14 +34,21 @@ app.post("/signup", (req, res) => {
     });
 });
 
-
 app.post("/login", (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
-  Users.findOne({username: username})
+  Users.findOne({ username: username })
     .then((result) => {
-      console.log(result, "user data")
-      res.send( "User found successfully" );
+      console.log(result, "user data");
+      if (!result) {
+        res.send({ message: "User not found" });
+      } else {
+        if (result.password == password) {
+          res.send({ message: "User found successfully" });
+        } else {
+          res.send({ message: "Wrong password" });
+        }
+      }
     })
     .catch(() => {
       res.send({ message: "server error" });

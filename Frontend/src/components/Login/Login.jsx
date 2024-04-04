@@ -13,6 +13,7 @@ function Login() {
       .post(url, data)
       .then((res) => {
         console.log(res.data.message);
+        alert(res.data.message);
       })
       .catch((err) => {
         console.log(err);
