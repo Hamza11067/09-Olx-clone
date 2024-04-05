@@ -124,7 +124,7 @@ function Header() {
           </button>
         )}
         <Link
-          to="/sell"
+          to="/add-product"
           className="col-span-1  font-bold flex items-center px-2  rounded-full border-4 border-blue-400"
         >
           <span className="text-2xl -mt-[6px]">&nbsp;+&nbsp;</span>

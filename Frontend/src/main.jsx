@@ -7,6 +7,7 @@ import Motors from "./components/Motors/Motors.jsx";
 import Property from "./components/Property/Property.jsx";
 import Login from "./components/Login/Login.jsx";
 import Signup from "./components/Signup/Signup.jsx";
+import { AddProduct } from "./components/index.js";
 // import Contact from "./components/Contact/Contact.jsx";
 // import User from "./components/User/User.jsx";
 import {
@@ -24,6 +25,7 @@ const router = createBrowserRouter(
       <Route path="property" element={<Property />} />
       <Route path="login" element={<Login />} />
       <Route path="signup" element={<Signup />} />
+      <Route path="add-product" element={<AddProduct />} />
     </Route>
   )
 );
