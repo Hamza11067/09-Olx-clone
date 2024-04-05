@@ -1,7 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./header.scss";
 
 function Header() {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
   return (
     <header className="px-8 sticky">
       <nav className="py-4  flex gap-8">
@@ -103,17 +108,26 @@ function Header() {
             </svg>
           </button>
         </div>
-        <Link
-          to="/login"
-          className="col-span-1 text-center font-bold underline hover:no-underline"
-        >
-          <p>Login</p>
-        </Link>
+        {!localStorage.getItem("token") ? (
+          <Link
+            to="/login"
+            className="col-span-1 text-center font-bold underline hover:no-underline"
+          >
+            <p>Login</p>
+          </Link>
+        ) : (
+          <button
+            className="col-span-1 text-center font-bold underline hover:no-underline"
+            onClick={handleLogout}
+          >
+            Logout
+          </button>
+        )}
         <Link
           to="/sell"
           className="col-span-1  font-bold flex items-center px-2  rounded-full border-4 border-blue-400"
         >
-          <span className="text-2xl -mt-[6px]">&nbsp;+&nbsp;</span> 
+          <span className="text-2xl -mt-[6px]">&nbsp;+&nbsp;</span>
           <p className="text-sm">SELL</p>
         </Link>
       </div>

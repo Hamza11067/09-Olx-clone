@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function Login() {
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const handleApi = (e) => {
@@ -12,8 +13,11 @@ function Login() {
     axios
       .post(url, data)
       .then((res) => {
-        console.log(res.data.message);
         alert(res.data.message);
+        if (res.data.token) {
+          localStorage.setItem("token", res.data.token);
+          navigate("/");
+        }
       })
       .catch((err) => {
         console.log(err);

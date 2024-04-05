@@ -9,6 +9,8 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+const jwt = require("jsonwebtoken");
+
 const mongoose = require("mongoose");
 mongoose.connect(
   "mongodb+srv://hamzakhalid1067:0B7jlP3IIhyn3NRE@cluster0.j4l3sbi.mongodb.net/"
@@ -37,17 +39,22 @@ app.post("/signup", (req, res) => {
 app.post("/login", (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
+
+  // finding user for login
   Users.findOne({ username: username })
     .then((result) => {
       console.log(result, "user data");
       if (!result) {
         res.send({ message: "User not found" });
+      } else if (result.password == password) {
+        const token = jwt.sign(
+          { data: result },
+          "MY_SECRET_KEY",
+          { expiresIn: "1hr" }
+        );
+        res.send({ message: "User found successfully", token: token });
       } else {
-        if (result.password == password) {
-          res.send({ message: "User found successfully" });
-        } else {
-          res.send({ message: "Wrong password" });
-        }
+        res.send({ message: "Wrong password" });
       }
     })
     .catch(() => {
