@@ -53,7 +53,7 @@ function Signup() {
       </label>
       <div>
         <button
-          className="text-lg font-semibold px-3 py-1 bg-blue-200 rounded-lg mr-2"
+          className="px-4 py-2 text-lg font-semibold text-white rounded-md bg-blue-600 hover:bg-blue-700 m-2"
           type="submit"
         >
           Signup
