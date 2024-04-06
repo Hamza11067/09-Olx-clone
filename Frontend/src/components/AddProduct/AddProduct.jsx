@@ -14,21 +14,20 @@ function AddProduct() {
   const [pname, setPname] = useState();
   const [pdesc, setPdesc] = useState();
   const [price, setPrice] = useState();
-  const [pcategory, setPcategory] = useState();
+  const [pcategory, setPcategory] = useState("Bikes");
   const [pimage, setPimage] = useState(null);
 
   const handleApi = (e) => {
     e.preventDefault();
-    console.log("working");
 
     const formData = new FormData();
     formData.append("pname", pname);
     formData.append("pdesc", pdesc);
     formData.append("price", price);
-    formData.append("pcapcategory", pcategory);
+    formData.append("pcategory", pcategory);
     formData.append("pimage", pimage);
 
-    const url = "";
+    const url = "http://localhost:3000/add-product";
     axios
       .post(url, formData)
       .then((res) => {
@@ -38,13 +37,12 @@ function AddProduct() {
         console.log(err);
       });
     alert("Product added successfuly");
-    navigate("/");
 
-    // clearing form data
-    setPname("");
-    setPdesc("");
-    setPrice("");
-    setPimage(null);
+    // // clearing form data
+    // setPname("");
+    // setPdesc("");
+    // setPrice("");
+    // setPimage(null);
   };
 
   return (
@@ -127,7 +125,7 @@ function AddProduct() {
           required
         />
         {/* Displaying the name of the selected file */}
-        {pimage && <p>Selected File: {pimage.name}</p>}
+        {pimage && <p></p>}
         <button
           type="submit"
           className="my-2 px-4 py-2 text-lg font-semibold text-white rounded-md bg-blue-600 hover:bg-blue-700"
