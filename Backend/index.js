@@ -2,6 +2,10 @@ const express = require("express");
 const app = express();
 const port = 3000;
 
+// path for file uploads
+const path = require("path");
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 // cors
 const cors = require("cors");
 app.use(cors());
@@ -29,14 +33,13 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-
-
 // mongoose for mongodb
 const mongoose = require("mongoose");
 mongoose.connect(
   "mongodb+srv://hamzakhalid1067:0B7jlP3IIhyn3NRE@cluster0.j4l3sbi.mongodb.net/"
 );
 
+// Mongodb models for data storage
 const Users = mongoose.model("Users", { username: String, password: String });
 const Products = mongoose.model("Products", {
   pname: String,
@@ -108,7 +111,16 @@ app.post("/add-product", upload.single("pimage"), (req, res) => {
     .catch(() => {
       res.send({ message: "server error" });
     });
+});
 
+app.get("/get-products", (req, res) => {
+  Products.find()
+    .then((result) => {
+      res.send({ message: "success", products: result });
+    })
+    .catch(() => {
+      res.send({ message: "failed" });
+    });
 });
 
 app.listen(port, () => {

@@ -5,10 +5,10 @@ function Header() {
   const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem("token");
-    navigate("/login");
+    navigate("/");
   };
   return (
-    <header className="px-8 sticky">
+    <header className="px-8 ">
       <nav className="py-4  flex gap-8">
         <Link href="/">
           <svg

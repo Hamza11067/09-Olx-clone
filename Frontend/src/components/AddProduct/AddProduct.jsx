@@ -14,7 +14,7 @@ function AddProduct() {
   const [pname, setPname] = useState();
   const [pdesc, setPdesc] = useState();
   const [price, setPrice] = useState();
-  const [pcategory, setPcategory] = useState("Bikes");
+  const [pcategory, setPcategory] = useState("");
   const [pimage, setPimage] = useState(null);
 
   const handleApi = (e) => {
@@ -32,17 +32,19 @@ function AddProduct() {
       .post(url, formData)
       .then((res) => {
         console.log(res);
+        if (res.data.message) {
+          alert(res.data.message);
+        }
       })
       .catch((err) => {
         console.log(err);
       });
-    alert("Product added successfuly");
 
-    // // clearing form data
-    // setPname("");
-    // setPdesc("");
-    // setPrice("");
-    // setPimage(null);
+    // clearing form data
+    setPname("");
+    setPdesc("");
+    setPrice("");
+    setPimage(null);
   };
 
   return (
@@ -109,6 +111,7 @@ function AddProduct() {
             <option value="bikes">Bikes</option>
             <option value="mobiles">Mobiles</option>
             <option value="clothes">Clothes</option>
+            <option value="other">Other</option>
           </select>
         </label>
         <label htmlFor="pimage" className="text-xl font-medium">

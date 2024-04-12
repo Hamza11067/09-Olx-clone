@@ -13,7 +13,7 @@ function Login() {
     axios
       .post(url, data)
       .then((res) => {
-        alert(res.data.message);
+        console.log(res.data.message);
         if (res.data.token) {
           localStorage.setItem("token", res.data.token);
           navigate("/");
