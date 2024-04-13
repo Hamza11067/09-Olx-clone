@@ -55,8 +55,22 @@ function Home() {
 
   // heart icon functioonality
   const [isClicked, setIsClicked] = useState(false);
-  const handleIconClick = () => {
+
+  const handleIconClick = (productId) => {
     setIsClicked(!isClicked);
+    let userId = localStorage.getItem("userId")
+    console.log("productId", productId, "userId", userId);
+
+    const data = { userId, productId };
+    const url = "http://localhost:3000/like-product";
+    axios
+      .post(url, data)
+      .then((res) => {
+        console.log(res.data.message);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -124,11 +138,14 @@ function Home() {
                     <h2 className="text-xl font-semibold pb-2">
                       Rs {item.price}
                     </h2>
-                    <div onClick={handleIconClick} className="cursor-pointer">
+                    <div
+                      onClick={() => handleIconClick(item._id)}
+                      className="cursor-pointer"
+                    >
                       {isClicked ? (
-                        <IoMdHeartEmpty size={24} />
-                      ) : (
                         <IoMdHeart size={24} />
+                      ) : (
+                        <IoMdHeartEmpty size={24} />
                       )}
                     </div>
                   </div>

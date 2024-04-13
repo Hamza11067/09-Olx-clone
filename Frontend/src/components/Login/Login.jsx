@@ -13,16 +13,17 @@ function Login() {
     axios
       .post(url, data)
       .then((res) => {
-        console.log(res.data.message);
+        // console.log(res.data.message);
         if (res.data.token) {
           localStorage.setItem("token", res.data.token);
+          localStorage.setItem("userId", res.data.userId);
           navigate("/");
         }
       })
       .catch((err) => {
         console.log(err);
       });
-    console.log(data);
+    // console.log(data);
     setUsername("");
     setPassword("");
   };

@@ -45,6 +45,7 @@ const Users = mongoose.model("Users", {
   password: String,
   likedProducts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Products" }],
 });
+
 const Products = mongoose.model("Products", {
   pname: String,
   pdesc: String,
@@ -55,6 +56,24 @@ const Products = mongoose.model("Products", {
 
 app.get("/", (req, res) => {
   res.send("Hello World! from Hamza");
+});
+
+// to save liked products data
+app.post("/like-product", (req, res) => {
+  let productId = req.body.productId;
+  let userId = req.body.userId;
+  console.log(req.body);
+
+  Users.updateOne(
+    { _id: userId },
+    { $addToSet: { likedProducts: productId } }
+  )
+    .then(() => {
+      res.send({ message: "liked successfully" });
+    })
+    .catch(() => {
+      res.send({ message: "server error" });
+    });
 });
 
 app.post("/signup", (req, res) => {
@@ -78,14 +97,17 @@ app.post("/login", (req, res) => {
   // finding user for login
   Users.findOne({ username: username })
     .then((result) => {
-      console.log(result, "user data");
       if (!result) {
         res.send({ message: "User not found" });
       } else if (result.password == password) {
         const token = jwt.sign({ data: result }, "MY_SECRET_KEY", {
           expiresIn: "1hr",
         });
-        res.send({ message: "User found successfully", token: token });
+        res.send({
+          message: "User found successfully",
+          token: token,
+          userId: result._id,
+        });
       } else {
         res.send({ message: "Wrong password" });
       }
@@ -96,10 +118,7 @@ app.post("/login", (req, res) => {
 });
 
 // Add product section
-
 app.post("/add-product", upload.single("pimage"), (req, res) => {
-  console.log(req.body);
-  console.log(req.file.path);
   const pname = req.body.pname;
   const pdesc = req.body.pdesc;
   const price = req.body.price;
