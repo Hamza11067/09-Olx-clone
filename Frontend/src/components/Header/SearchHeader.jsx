@@ -10,7 +10,7 @@ function SearchHeader(props) {
   return (
     <div
       id="search-header"
-      className="py-2 grid grid-cols-12 items-center gap-4"
+      className="py-4 grid grid-cols-12 items-center gap-4"
     >
       <div
         id="select"

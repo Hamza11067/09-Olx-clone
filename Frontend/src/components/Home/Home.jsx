@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 // import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import SearchHeader from "../Header/SearchHeader";
+import Categories from "../Categories/Categories";
 
 function Home() {
   // const navigate = useNavigate();
@@ -47,6 +48,7 @@ function Home() {
           handleSearch={handleSearch}
           handleClick={handleClick}
         />
+        <Categories />
         {/* <h1>Products</h1> */}
         <div className="products flex flex-wrap gap-6 py-4">
           {products &&
