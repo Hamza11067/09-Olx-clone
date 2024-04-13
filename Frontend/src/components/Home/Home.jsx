@@ -7,6 +7,7 @@ import Categories from "../Categories/Categories";
 function Home() {
   // const navigate = useNavigate();
   const [products, setProducts] = useState([]);
+  const [cproducts, setcProducts] = useState([]);
   const [search, setSearch] = useState();
 
   useEffect(() => {
@@ -37,7 +38,17 @@ function Home() {
         return item;
       }
     });
-    setProducts(filteredProducts);
+    setcProducts(filteredProducts);
+  };
+
+  const handleCategory = (value) => {
+    let filteredProducts = products.filter((item) => {
+      console.log(value, item);
+      if (item.pcategory.toLowerCase() == value.toLowerCase()) {
+        return item;
+      }
+    });
+    setcProducts(filteredProducts);
   };
 
   return (
@@ -48,8 +59,36 @@ function Home() {
           handleSearch={handleSearch}
           handleClick={handleClick}
         />
-        <Categories />
-        {/* <h1>Products</h1> */}
+        <Categories handleCategory={handleCategory} />
+
+        <h3 className=" font-medium uppercase">Search Results</h3>
+        <div className="products flex flex-wrap gap-6 py-4">
+          {cproducts &&
+            products.length > 0 &&
+            cproducts.map((item) => (
+              <div
+                key={item._id}
+                className="product-card w-[300px]  border-[1px] border-gray-300"
+              >
+                <img
+                  className="inline-block w-full h-[200px] object-cover"
+                  src={"http://localhost:3000/" + item.pimage}
+                  alt="img"
+                />
+                <div className="text-left p-4">
+                  <h2 className="text-xl font-semibold pb-2">
+                    Rs {item.price}
+                  </h2>
+                  <h2 className="text-lg">
+                    {item.pname} | {item.pcategory}
+                  </h2>
+                  <p className="text-sm text-gray-500 pt-1">{item.pdesc}</p>
+                </div>
+              </div>
+            ))}
+        </div>
+
+        <h3 className=" font-medium uppercase">All Products</h3>
         <div className="products flex flex-wrap gap-6 py-4">
           {products &&
             products.length > 0 &&

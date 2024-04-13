@@ -127,7 +127,7 @@ function AddProduct() {
           }}
           required
         />
-        {/* Displaying the name of the selected file */}
+        {/* Displaying the name of the selected file... actually I didn't dispalyed it just to avoid red error bullshit*/}
         {pimage && <p></p>}
         <button
           type="submit"
