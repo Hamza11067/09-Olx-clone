@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import SearchHeader from "../Header/SearchHeader";
 
-function Home() {
+export function Home() {
   // const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState();
@@ -20,7 +19,7 @@ function Home() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  });
 
   const handleSearch = (value) => {
     setSearch(value);
@@ -28,11 +27,8 @@ function Home() {
 
   const handleClick = () => {
     let filteredProducts = products.filter((item) => {
-      if (
-        item.pname.toLowerCase().includes(search.toLowerCase()) ||
-        item.pdesc.toLowerCase().includes(search.toLowerCase()) ||
-        item.pcategory.toLowerCase().includes(search.toLowerCase())
-      ) {
+      if (item.pname.includes(search)) {
+        console.log(item);
         return item;
       }
     });
@@ -77,5 +73,3 @@ function Home() {
     </>
   );
 }
-
-export default Home;
