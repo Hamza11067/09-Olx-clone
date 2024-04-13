@@ -107,6 +107,7 @@ function AddProduct() {
             onChange={(e) => {
               setPcategory(e.target.value);
             }}
+            required
           >
             <option value="bikes">Bikes</option>
             <option value="mobiles">Mobiles</option>

@@ -40,7 +40,11 @@ mongoose.connect(
 );
 
 // Mongodb models for data storage
-const Users = mongoose.model("Users", { username: String, password: String });
+const Users = mongoose.model("Users", {
+  username: String,
+  password: String,
+  likedProducts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Products" }],
+});
 const Products = mongoose.model("Products", {
   pname: String,
   pdesc: String,

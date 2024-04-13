@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import SearchHeader from "../Header/SearchHeader";
 import Categories from "../Categories/Categories";
+import { IoMdHeartEmpty } from "react-icons/io";
+import { IoMdHeart } from "react-icons/io";
 
 function Home() {
   // const navigate = useNavigate();
@@ -51,6 +53,12 @@ function Home() {
     setcProducts(filteredProducts);
   };
 
+  // heart icon functioonality
+  const [isClicked, setIsClicked] = useState(false);
+  const handleIconClick = () => {
+    setIsClicked(!isClicked);
+  };
+
   return (
     <>
       <div className="px-8">
@@ -76,9 +84,18 @@ function Home() {
                   alt="img"
                 />
                 <div className="text-left p-4">
-                  <h2 className="text-xl font-semibold pb-2">
-                    Rs {item.price}
-                  </h2>
+                  <div className="flex justify-between items-center">
+                    <h2 className="text-xl font-semibold pb-2">
+                      Rs {item.price}
+                    </h2>
+                    <div onClick={handleIconClick} className="cursor-pointer">
+                      {isClicked ? (
+                        <IoMdHeartEmpty size={24} />
+                      ) : (
+                        <IoMdHeart size={24} />
+                      )}
+                    </div>
+                  </div>
                   <h2 className="text-lg">
                     {item.pname} | {item.pcategory}
                   </h2>
@@ -103,9 +120,18 @@ function Home() {
                   alt="img"
                 />
                 <div className="text-left p-4">
-                  <h2 className="text-xl font-semibold pb-2">
-                    Rs {item.price}
-                  </h2>
+                  <div className="flex justify-between items-center">
+                    <h2 className="text-xl font-semibold pb-2">
+                      Rs {item.price}
+                    </h2>
+                    <div onClick={handleIconClick} className="cursor-pointer">
+                      {isClicked ? (
+                        <IoMdHeartEmpty size={24} />
+                      ) : (
+                        <IoMdHeart size={24} />
+                      )}
+                    </div>
+                  </div>
                   <h2 className="text-lg">
                     {item.pname} | {item.pcategory}
                   </h2>
