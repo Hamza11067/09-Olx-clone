@@ -1,7 +1,7 @@
 
 function Motors() {
   return (
-    <div>Motors</div>
+    <div className="px-8 h-40">Motors</div>
   )
 }
 

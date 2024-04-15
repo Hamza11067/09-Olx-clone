@@ -76,6 +76,18 @@ app.post("/like-product", (req, res) => {
     });
 });
 
+// to show liked products on frontend
+app.get("/liked-products", (req, res) => {
+
+  Products.find().populate("likedProducts")
+    .then((result) => {
+      res.send({ message: "success", products: result });
+    })
+    .catch(() => {
+      res.send({ message: "failed" });
+    });
+});
+
 app.post("/signup", (req, res) => {
   const username = req.body.username;
   const password = req.body.password;

@@ -2,14 +2,16 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
+import AddProduct from "./components/AddProduct/AddProduct.jsx";
 import Home from "./components/Home/Home.jsx";
+import LikedProducts from "./components/LikedProducts/LikedProducts.jsx";
 import Motors from "./components/Motors/Motors.jsx";
 import Property from "./components/Property/Property.jsx";
 import Login from "./components/Login/Login.jsx";
 import Signup from "./components/Signup/Signup.jsx";
-import { AddProduct } from "./components/index.js";
-// import Contact from "./components/Contact/Contact.jsx";
-// import User from "./components/User/User.jsx";
+
+// import { AddProduct, Home, Login, Motors, Property, Signup } from "./components/index.js";
+
 import {
   Route,
   RouterProvider,
@@ -21,6 +23,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route path="" element={<Home />} />
+      <Route path="liked-products" element={<LikedProducts />} />
       <Route path="motors" element={<Motors />} />
       <Route path="property" element={<Property />} />
       <Route path="login" element={<Login />} />

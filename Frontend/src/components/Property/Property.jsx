@@ -2,7 +2,7 @@
 
 function Property() {
   return (
-    <div>Property</div>
+    <div  className="px-8 h-40">Property</div>
   )
 }
 
