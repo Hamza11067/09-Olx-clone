@@ -60,11 +60,17 @@ app.get("/", (req, res) => {
 
 // for search results
 app.get("/search", (req, res) => {
-  let query = req.query;
+  let search = req.query.search;
 
-  Products.find()
-    .then((result) => {
-      res.send(result);
+  Products.find({
+    $or: [
+      { pname: { $regex: search } },
+      { pdesc: { $regex: search } },
+      { pcategory: { $regex: search } },
+    ],
+  })
+    .then((results) => {
+      res.send({ message: "success", products: results });
     })
     .catch(() => {
       res.send({ message: "failed" });
