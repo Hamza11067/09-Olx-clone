@@ -58,16 +58,26 @@ app.get("/", (req, res) => {
   res.send("Hello World! from Hamza");
 });
 
+// for search results
+app.get("/search", (req, res) => {
+  let query = req.query;
+
+  Products.find()
+    .then((result) => {
+      res.send(result);
+    })
+    .catch(() => {
+      res.send({ message: "failed" });
+    });
+});
+
 // to save liked products data
 app.post("/like-product", (req, res) => {
   let productId = req.body.productId;
   let userId = req.body.userId;
-  console.log(req.body);
+  // console.log(req.body);
 
-  Users.updateOne(
-    { _id: userId },
-    { $addToSet: { likedProducts: productId } }
-  )
+  Users.updateOne({ _id: userId }, { $addToSet: { likedProducts: productId } })
     .then(() => {
       res.send({ message: "liked successfully" });
     })
@@ -77,14 +87,14 @@ app.post("/like-product", (req, res) => {
 });
 
 // to show liked products on frontend
-app.get("/liked-products", (req, res) => {
-
-  Products.find().populate("likedProducts")
+app.post("/liked-products", (req, res) => {
+  Users.findOne({ _id: req.body.userId })
+    .populate("likedProducts")
     .then((result) => {
-      res.send({ message: "success", products: result });
+      res.send({ message: "success", products: result.likedProducts });
     })
     .catch(() => {
-      res.send({ message: "failed" });
+      res.send({ message: "request failed" });
     });
 });
 
@@ -148,10 +158,24 @@ app.post("/add-product", upload.single("pimage"), (req, res) => {
     });
 });
 
+// to show all product on frontend
 app.get("/get-products", (req, res) => {
   Products.find()
     .then((result) => {
       res.send({ message: "success", products: result });
+    })
+    .catch(() => {
+      res.send({ message: "failed" });
+    });
+});
+
+// for single product details
+app.get("/get-product/:productId", (req, res) => {
+  console.log(req.params);
+
+  Products.findOne({ _id: req.params.productId })
+    .then((result) => {
+      res.send({ message: "success", product: result });
     })
     .catch(() => {
       res.send({ message: "failed" });

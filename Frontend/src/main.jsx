@@ -18,6 +18,7 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
+import SingleProduct from "./components/SingleProduct/SingleProduct.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,6 +30,7 @@ const router = createBrowserRouter(
       <Route path="login" element={<Login />} />
       <Route path="signup" element={<Signup />} />
       <Route path="add-product" element={<AddProduct />} />
+      <Route path="product/:productId" element={<SingleProduct />} />
     </Route>
   )
 );

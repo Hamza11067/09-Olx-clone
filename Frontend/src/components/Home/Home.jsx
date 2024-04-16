@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import SearchHeader from "../Header/SearchHeader";
 import Categories from "../Categories/Categories";
@@ -8,7 +8,7 @@ import { IoMdHeartEmpty } from "react-icons/io";
 import { IoMdHeart } from "react-icons/io";
 
 function Home() {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [cproducts, setcProducts] = useState([]);
   const [search, setSearch] = useState();
@@ -32,16 +32,19 @@ function Home() {
   };
 
   const handleClick = () => {
-    let filteredProducts = products.filter((item) => {
-      if (
-        item.pname.toLowerCase().includes(search.toLowerCase()) ||
-        item.pdesc.toLowerCase().includes(search.toLowerCase()) ||
-        item.pcategory.toLowerCase().includes(search.toLowerCase())
-      ) {
-        return item;
-      }
-    });
-    setcProducts(filteredProducts);
+
+    // const url = "http://localhost:3000/search?query=" + search;
+
+    // let filteredProducts = products.filter((item) => {
+    //   if (
+    //     item.pname.toLowerCase().includes(search.toLowerCase()) ||
+    //     item.pdesc.toLowerCase().includes(search.toLowerCase()) ||
+    //     item.pcategory.toLowerCase().includes(search.toLowerCase())
+    //   ) {
+    //     return item;
+    //   }
+    // });
+    // setcProducts(filteredProducts);
   };
 
   const handleCategory = (value) => {
@@ -79,6 +82,10 @@ function Home() {
         console.log(err);
       });
   };
+
+  const  goToSingleProduct = (id) => {
+    navigate("/product/" + id)
+  }
 
   return (
     <>
@@ -140,6 +147,7 @@ function Home() {
             products.length > 0 &&
             products.map((item) => (
               <div
+                onClick={() => goToSingleProduct(item._id)}
                 key={item._id}
                 className="product-card w-[300px]  border-[1px] border-gray-300"
               >
