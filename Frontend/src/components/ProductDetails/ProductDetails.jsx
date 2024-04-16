@@ -2,7 +2,7 @@ import { useParams } from "react-router";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-function SingleProduct() {
+function ProductDetails() {
   const params = useParams();
   const [product, setProduct] = useState();
 
@@ -48,4 +48,4 @@ function SingleProduct() {
   );
 }
 
-export default SingleProduct;
+export default ProductDetails;

@@ -1,18 +1,12 @@
 import { IoIosArrowDown } from "react-icons/io";
 import { Link } from "react-router-dom";
+import categories from "./CategoryList";
+import { useNavigate } from "react-router-dom";
 
-function Categories(props) {
-  const categories = [
-    "Mobiles",
-    "Bikes",
-    "Clothes",
-    "Cars",
-    "Houses",
-    "Video-Audios",
-    "Tablets",
-    "Land & Plots",
-    "Other",
-  ];
+
+function Categories() {
+  const navigate = useNavigate();
+ 
 
   return (
     <div className="py-2 border-t-[1px] border-gray-300 flex items-center justify-between">
@@ -24,7 +18,7 @@ function Categories(props) {
         {categories.map((item, index) => (
           <span
             key={index}
-            onClick={() => props.handleCategory && props.handleCategory(item)}
+            onClick={() => navigate("/category/" + item)}
             className="ml-4 cursor-pointer text-gray-600 hover:text-blue-500"
           >
             {item}

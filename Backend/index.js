@@ -52,6 +52,7 @@ const Products = mongoose.model("Products", {
   price: Number,
   pcategory: String,
   pimage: String,
+  addedBy: mongoose.Schema.Types.ObjectId,
 });
 
 app.get("/", (req, res) => {
@@ -152,8 +153,9 @@ app.post("/add-product", upload.single("pimage"), (req, res) => {
   const price = req.body.price;
   const pcategory = req.body.pcategory;
   const pimage = req.file.path;
+  const addedBy = req.body.userId
 
-  const product = new Products({ pname, pdesc, price, pcategory, pimage });
+  const product = new Products({ pname, pdesc, price, pcategory, pimage, addedBy });
   product
     .save()
     .then(() => {
@@ -166,7 +168,14 @@ app.post("/add-product", upload.single("pimage"), (req, res) => {
 
 // to show all product on frontend
 app.get("/get-products", (req, res) => {
-  Products.find()
+  const categoryName = req.query.categoryName;
+  let _f = {};
+  
+  if (categoryName) {
+    _f = { pcategory : categoryName }
+  };
+
+  Products.find(_f)
     .then((result) => {
       res.send({ message: "success", products: result });
     })
@@ -177,7 +186,7 @@ app.get("/get-products", (req, res) => {
 
 // for single product details
 app.get("/get-product/:productId", (req, res) => {
-  console.log(req.params);
+  // console.log(req.params);
 
   Products.findOne({ _id: req.params.productId })
     .then((result) => {

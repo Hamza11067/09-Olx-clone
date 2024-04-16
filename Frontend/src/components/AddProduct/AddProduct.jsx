@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import categories from "../Categories/CategoryList";
 
 function AddProduct() {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ function AddProduct() {
   const [pname, setPname] = useState();
   const [pdesc, setPdesc] = useState();
   const [price, setPrice] = useState();
-  const [pcategory, setPcategory] = useState("");
+  const [pcategory, setPcategory] = useState();
   const [pimage, setPimage] = useState(null);
 
   const handleApi = (e) => {
@@ -26,6 +27,7 @@ function AddProduct() {
     formData.append("price", price);
     formData.append("pcategory", pcategory);
     formData.append("pimage", pimage);
+    formData.append("userId", localStorage.getItem("userId"));
 
     const url = "http://localhost:3000/add-product";
     axios
@@ -109,10 +111,11 @@ function AddProduct() {
             }}
             required
           >
-            <option value="bikes">Bikes</option>
-            <option value="mobiles">Mobiles</option>
-            <option value="clothes">Clothes</option>
-            <option value="other">Other</option>
+            {categories &&
+              categories.length > 0 &&
+              categories.map((item, index) => (
+                <option key={index + " " + item}>{item}</option>
+              ))}
           </select>
         </label>
         <label htmlFor="pimage" className="text-xl font-medium">

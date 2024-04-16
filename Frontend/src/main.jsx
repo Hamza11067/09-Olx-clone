@@ -9,6 +9,8 @@ import Motors from "./components/Motors/Motors.jsx";
 import Property from "./components/Property/Property.jsx";
 import Login from "./components/Login/Login.jsx";
 import Signup from "./components/Signup/Signup.jsx";
+import CategoryPage from "./components/Categories/CategoryPage.jsx";
+import ProductDetails from "./components/ProductDetails/ProductDetails.jsx";
 
 // import { AddProduct, Home, Login, Motors, Property, Signup } from "./components/index.js";
 
@@ -18,7 +20,6 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import SingleProduct from "./components/SingleProduct/SingleProduct.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -30,7 +31,8 @@ const router = createBrowserRouter(
       <Route path="login" element={<Login />} />
       <Route path="signup" element={<Signup />} />
       <Route path="add-product" element={<AddProduct />} />
-      <Route path="product/:productId" element={<SingleProduct />} />
+      <Route path="product/:productId" element={<ProductDetails />} />
+      <Route path="category/:categoryName" element={<CategoryPage />} />
     </Route>
   )
 );
