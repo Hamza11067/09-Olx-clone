@@ -5,19 +5,32 @@ import axios from "axios";
 function ProductDetails() {
   const params = useParams();
   const [product, setProduct] = useState();
+  const [user, setUser] = useState();
+  // console.log(user);
 
   useEffect(() => {
     const url = "http://localhost:3000/get-product/" + params.productId;
     axios
       .get(url)
       .then((res) => {
-        console.log(res.data);
         setProduct(res.data.product);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
+
+  const handleContact = (addedBy) => {
+    const url = "http://localhost:3000/get-user/" + addedBy;
+    axios
+      .get(url)
+      .then((res) => {
+        setUser(res.data.user);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div className="px-8 py-4 grid grid-cols-12 gap-4">
@@ -40,7 +53,17 @@ function ProductDetails() {
             </div>
           </div>
           <div className="col-span-4">
-            <h2 className="text-2xl font-bold">User Details</h2>
+            {product.addedBy && (
+              <button
+                className="text-2xl font-bold"
+                onClick={() => handleContact(product.addedBy)}
+              >
+                Show Contact Details
+              </button>
+            )}
+            {user && user.username && <h3>{user.username}</h3>}
+            {user && user.mobile && <h3>{user.mobile}</h3>}
+            {user && user.email && <h3>{user.email}</h3>}
           </div>
         </>
       )}

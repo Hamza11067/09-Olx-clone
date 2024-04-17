@@ -30,7 +30,6 @@ const storage = multer.diskStorage({
     cb(null, file.fieldname + "-" + uniqueSuffix);
   },
 });
-
 const upload = multer({ storage: storage });
 
 // mongoose for mongodb
@@ -43,6 +42,8 @@ mongoose.connect(
 const Users = mongoose.model("Users", {
   username: String,
   password: String,
+  mobile: String,
+  email: String,
   likedProducts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Products" }],
 });
 
@@ -108,7 +109,15 @@ app.post("/liked-products", (req, res) => {
 app.post("/signup", (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
-  const user = new Users({ username: username, password: password });
+  const mobile = req.body.mobile;
+  const email = req.body.email;
+
+  const user = new Users({
+    username,
+    password,
+    mobile,
+    email,
+  });
   user
     .save()
     .then(() => {
@@ -153,9 +162,16 @@ app.post("/add-product", upload.single("pimage"), (req, res) => {
   const price = req.body.price;
   const pcategory = req.body.pcategory;
   const pimage = req.file.path;
-  const addedBy = req.body.userId
+  const addedBy = req.body.userId;
 
-  const product = new Products({ pname, pdesc, price, pcategory, pimage, addedBy });
+  const product = new Products({
+    pname,
+    pdesc,
+    price,
+    pcategory,
+    pimage,
+    addedBy,
+  });
   product
     .save()
     .then(() => {
@@ -170,10 +186,10 @@ app.post("/add-product", upload.single("pimage"), (req, res) => {
 app.get("/get-products", (req, res) => {
   const categoryName = req.query.categoryName;
   let _f = {};
-  
+
   if (categoryName) {
-    _f = { pcategory : categoryName }
-  };
+    _f = { pcategory: categoryName };
+  }
 
   Products.find(_f)
     .then((result) => {
@@ -194,6 +210,26 @@ app.get("/get-product/:productId", (req, res) => {
     })
     .catch(() => {
       res.send({ message: "failed" });
+    });
+});
+
+// to show user contact details
+app.get("/get-user/:addedBy", (req, res) => {
+  const _userId = req.params.addedBy;
+
+  Users.findOne({ _id: _userId })
+    .then((result) => {
+      res.send({
+        message: "success",
+        user: {
+          username: result.username,
+          mobile: result.mobile,
+          email: result.email,
+        },
+      });
+    })
+    .catch(() => {
+      res.send({ message: "server error" });
     });
 });
 

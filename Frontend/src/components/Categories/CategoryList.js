@@ -7,6 +7,7 @@ const categories = [
   "Video-Audios",
   "Tablets",
   "Land & Plots",
+  "Birds",
   "Other",
 ];
 

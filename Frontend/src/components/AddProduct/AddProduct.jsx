@@ -50,7 +50,7 @@ function AddProduct() {
   };
 
   return (
-    <div className="w-full h-screen absolute top-0 left-0 z-10 px-8 flex justify-center bg-white">
+    <div className="w-full px-8 flex justify-center bg-white">
       <form className="w-full" onSubmit={handleApi}>
         <h1 className="text-center text-3xl font-semibold py-2">ADD PRODUCT</h1>
         <label htmlFor="pname" className="text-xl font-medium">

@@ -5,9 +5,12 @@ import axios from "axios";
 function Signup() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [email, setEmail] = useState("");
+
   const handleApi = (e) => {
     e.preventDefault();
-    const data = { username, password };
+    const data = { username, password, mobile, email };
     const url = "http://localhost:3000/signup";
     axios
       .post(url, data)
@@ -17,10 +20,13 @@ function Signup() {
       })
       .catch((err) => {
         console.log(err);
+        alert(err);
       });
-    console.log(data);
+    // console.log(data);
     setUsername("");
     setPassword("");
+    setMobile("");
+    setEmail("");
   };
 
   return (
@@ -47,6 +53,28 @@ function Signup() {
           id="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          className="border-[1px] border-black"
+          required
+        />
+      </label>
+      <label htmlFor="mobile" className="text-xl font-medium pb-2">
+        Mobile : &nbsp;
+        <input
+          type="number"
+          id="mobile"
+          value={mobile}
+          onChange={(e) => setMobile(e.target.value)}
+          className="border-[1px] border-black"
+          required
+        />
+      </label>
+      <label htmlFor="email" className="text-xl font-medium pb-2">
+        Email : &nbsp;
+        <input
+          type="email"
+          id="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           className="border-[1px] border-black"
           required
         />

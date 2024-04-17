@@ -22,6 +22,7 @@ function Login() {
       })
       .catch((err) => {
         console.log(err);
+        alert(err);
       });
     // console.log(data);
     setUsername("");
