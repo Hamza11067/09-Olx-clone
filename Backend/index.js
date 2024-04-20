@@ -94,6 +94,19 @@ app.post("/like-product", (req, res) => {
     });
 });
 
+app.post("/dislike-product", (req, res) => {
+  let productId = req.body.productId;
+  let userId = req.body.userId;
+
+  Users.updateOne({ _id: userId }, { $pull: { likedProducts: productId } })
+    .then(() => {
+      res.send({ message: "Disliked successfully" });
+    })
+    .catch(() => {
+      res.send({ message: "server error" });
+    });
+});
+
 // to show liked products on frontend
 app.post("/liked-products", (req, res) => {
   Users.findOne({ _id: req.body.userId })

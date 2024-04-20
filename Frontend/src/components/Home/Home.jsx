@@ -10,9 +10,12 @@ import { IoMdHeart } from "react-icons/io";
 function Home() {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
+  const [likedProducts, setLikedProducts] = useState([]);
   const [cproducts, setcProducts] = useState([]);
   const [search, setSearch] = useState();
   const [isSearched, setIsSearched] = useState(false);
+  const [isRefreshed, setIsRefreshed] = useState(false);
+  console.log(likedProducts);
 
   useEffect(() => {
     const url = "http://localhost:3000/get-products";
@@ -26,7 +29,20 @@ function Home() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+
+    let data = { userId: localStorage.getItem("userId") };
+    const url2 = "http://localhost:3000/liked-products";
+    axios
+      .post(url2, data)
+      .then((res) => {
+        if ((res.data, products)) {
+          setLikedProducts(res.data.products);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [isRefreshed]);
 
   const handleSearch = (value) => {
     setSearch(value);
@@ -67,26 +83,34 @@ function Home() {
     setcProducts(filteredProducts);
   };
 
-  // heart icon functioonality
-  // const [likedProducts, setLikedProducts] = useState({}); // State to store liked products
-  const likedProducts = {};
-
-  const handleIconClick = (productId) => {
-    // Toggle like status for the clicked product
-    //  setLikedProducts((prevLikedProducts) => ({
-    //   ...prevLikedProducts,
-    //   [productId]: !prevLikedProducts[productId],
-    // }));
+  const handleLike = (productId, e) => {
+    e.stopPropagation();
 
     let userId = localStorage.getItem("userId");
-    // console.log("productId", productId, "userId", userId);
-
     const data = { userId, productId };
     const url = "http://localhost:3000/like-product";
     axios
       .post(url, data)
       .then((res) => {
         console.log(res.data.message);
+        setIsRefreshed(!isRefreshed);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleDislike = (productId, e) => {
+    e.stopPropagation();
+
+    let userId = localStorage.getItem("userId");
+    const data = { userId, productId };
+    const url = "http://localhost:3000/dislike-product";
+    axios
+      .post(url, data)
+      .then((res) => {
+        console.log(res.data.message);
+        setIsRefreshed(!isRefreshed);
       })
       .catch((err) => {
         console.log(err);
@@ -169,10 +193,6 @@ function Home() {
           </div>
         )}
 
-        {/* <div className="flex justify-between font-medium uppercase">
-          <h3>All Products</h3>
-        </div> */}
-
         {!isSearched && (
           <div className="products flex flex-wrap gap-6 py-4">
             {products &&
@@ -181,7 +201,7 @@ function Home() {
                 <div
                   onClick={() => goToSingleProduct(item._id)}
                   key={item._id}
-                  className="product-card w-[300px]  border-[1px] border-gray-300"
+                  className="product-card w-[300px]  border-[1px] border-gray-300 cursor-pointer"
                 >
                   <img
                     className="inline-block w-full h-[200px] object-cover"
@@ -193,16 +213,19 @@ function Home() {
                       <h2 className="text-xl font-semibold pb-2">
                         Rs {item.price}
                       </h2>
-                      <div
-                        onClick={() => handleIconClick(item._id)}
-                        className="cursor-pointer"
-                      >
-                        {likedProducts[item._id] ? (
-                          <IoMdHeart size={24} />
+                      <div>
+                        {likedProducts.find(
+                          (likedItem) => likedItem._id == item._id
+                        ) ? (
+                          <IoMdHeart
+                            size={24}
+                            onClick={(e) => handleDislike(item._id, e)}
+                          />
                         ) : (
                           <IoMdHeartEmpty
                             size={24}
-                            className="hover:fill-red-500"
+                            className="hover:fill-gray-500"
+                            onClick={(e) => handleLike(item._id, e)}
                           />
                         )}
                       </div>

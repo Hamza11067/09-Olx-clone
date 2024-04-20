@@ -1,5 +1,5 @@
 import { IoIosArrowDown } from "react-icons/io";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import categories from "./CategoryList";
 import { useNavigate } from "react-router-dom";
 
@@ -25,9 +25,6 @@ function Categories() {
           </span>
         ))}
       </div>
-      <button className="font-bold underline hover:no-underline">
-        <Link to="/liked-products">Liked Products</Link>
-      </button>
     </div>
   );
 }
