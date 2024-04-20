@@ -9,7 +9,7 @@ function Categories() {
  
 
   return (
-    <div className="py-2 border-t-[1px] border-gray-300 flex items-center justify-between">
+    <div className="py-2 border-t-[1px] border-gray-300 flex items-center ">
       <span className="flex items-center gap-1 font-medium cursor-pointer mr-2 uppercase">
         <p>All Categories </p>
         <IoIosArrowDown className="-mb-1 size-6" />

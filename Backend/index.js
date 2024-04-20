@@ -119,6 +119,16 @@ app.post("/liked-products", (req, res) => {
     });
 });
 
+app.post("/my-products", (req, res) => {
+  Products.find({ addedBy: req.body.userId })
+    .then((result) => {
+      res.send({ message: "success", products: result });
+    })
+    .catch(() => {
+      res.send({ message: "request failed" });
+    });
+});
+
 app.post("/signup", (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
@@ -224,6 +234,25 @@ app.get("/get-product/:productId", (req, res) => {
     .catch(() => {
       res.send({ message: "failed" });
     });
+});
+
+app.get("/my-profile/:userId", (req, res) => {
+  const userId = req.params.userId
+
+  Users.findOne({ _id: userId })
+  .then((result) => {
+    res.send({
+      message: "success",
+      user: {
+        username: result.username,
+        mobile: result.mobile,
+        email: result.email,
+      },
+    });
+  })
+  .catch(() => {
+    res.send({ message: "server error" });
+  });
 });
 
 // to show user contact details

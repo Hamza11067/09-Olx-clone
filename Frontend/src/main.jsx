@@ -11,7 +11,8 @@ import Login from "./components/Login/Login.jsx";
 import Signup from "./components/Signup/Signup.jsx";
 import CategoryPage from "./components/Categories/CategoryPage.jsx";
 import ProductDetails from "./components/ProductDetails/ProductDetails.jsx";
-
+import MyProfile from "./components/MyProfile/MyProfile.jsx";
+import MyProducts from "./components/MyProducts/MyProducts.jsx";
 // import { AddProduct, Home, Login, Motors, Property, Signup } from "./components/index.js";
 
 import {
@@ -26,6 +27,8 @@ const router = createBrowserRouter(
     <Route path="/" element={<App />}>
       <Route path="" element={<Home />} />
       <Route path="liked-products" element={<LikedProducts />} />
+      <Route path="my-products" element={<MyProducts />} />
+      <Route path="my-profile/:userId" element={<MyProfile />} />
       <Route path="motors" element={<Motors />} />
       <Route path="property" element={<Property />} />
       <Route path="login" element={<Login />} />

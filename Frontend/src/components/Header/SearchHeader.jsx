@@ -10,6 +10,8 @@ function SearchHeader(props) {
     navigate("/");
   };
 
+  const userId = localStorage.getItem("userId");
+
   const handlePersonClick = () => {
     if (isPersonIconClicked) {
       document.getElementById("personIconDetail").classList.remove("hidden");
@@ -99,14 +101,14 @@ function SearchHeader(props) {
                 </div>
               </div>
               <div className="font-bold  py-2 px-8 rounded-md border-2 border-gray-500 hover:border-black cursor-pointer mb-4">
-                <button className="hover:underline">
+                <Link to={`/my-profile/` + userId } className="hover:underline">
                   view and edit your profile
-                </button>
+                </Link>
               </div>
             </div>
             <hr />
             <div>
-              <div className="px-4 py-2 flex items-center gap-4 cursor-pointer hover:bg-blue-200">
+              <Link to="/my-products" className="px-4 py-2 flex items-center gap-4 cursor-pointer hover:bg-blue-200">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="23px"
@@ -116,7 +118,7 @@ function SearchHeader(props) {
                   <path d="M349.46 85.333h487.619l40.635 40.635v609.524l-40.635 40.635h-487.619l-40.635-40.635v-609.524l40.635-40.635zM390.095 694.857h406.35v-528.254h-406.35v528.254zM146.286 247.873l40.635-40.635 40.635 40.635v609.524h528.254l40.635 40.635-40.635 40.635h-568.889l-40.635-40.635v-650.159zM512 329.143h162.54l40.635 40.635-40.635 40.635h-162.54l-40.635-40.635 40.635-40.635zM512 491.683h81.27l40.635 40.635-40.635 40.635h-81.27l-40.635-40.635 40.635-40.635z"></path>
                 </svg>
                 <h3 className="text-lg">My ads</h3>
-              </div>
+              </Link>
               <Link to="/liked-products" className="px-4 py-2 flex items-center gap-4 cursor-pointer hover:bg-blue-200">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

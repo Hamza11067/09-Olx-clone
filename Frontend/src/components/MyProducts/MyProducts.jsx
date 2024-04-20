@@ -1,37 +1,24 @@
 import { useEffect, useState } from "react";
-// import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import SearchHeader from "../Header/SearchHeader";
 import Categories from "../Categories/Categories";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { IoMdHeart } from "react-icons/io";
+import { MdEdit } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
 
-function LikedProducts() {
+function MyProducts() {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
-  // const [likedProducts, setLikedProducts] = useState([]);
   const [cproducts, setcProducts] = useState([]);
   const [search, setSearch] = useState();
   const [isSearched, setIsSearched] = useState(false);
   const [isRefreshed, setIsRefreshed] = useState(false);
-  // console.log(likedProducts);
 
   useEffect(() => {
-    // const url = "http://localhost:3000/get-products";
-    // axios
-    //   .get(url)
-    //   .then((res) => {
-    //     if ((res.data, products)) {
-    //       setProducts(res.data.products);
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-
     let data = { userId: localStorage.getItem("userId") };
-    const url2 = "http://localhost:3000/liked-products";
+    const url2 = "http://localhost:3000/my-products";
     axios
       .post(url2, data)
       .then((res) => {
@@ -60,7 +47,6 @@ function LikedProducts() {
       .catch((err) => {
         console.log("Server Error:", err);
       });
-
   };
 
   const handleCategory = (value) => {
@@ -206,21 +192,25 @@ function LikedProducts() {
                       <h2 className="text-xl font-semibold pb-2">
                         Rs {item.price}
                       </h2>
-                      <div>
-                        {products.find(
-                          (likedItem) => likedItem._id == item._id
-                        ) ? (
-                          <IoMdHeart
-                            size={24}
-                            onClick={(e) => handleDislike(item._id, e)}
-                          />
-                        ) : (
-                          <IoMdHeartEmpty
-                            size={24}
-                            className="hover:fill-gray-500"
-                            onClick={(e) => handleLike(item._id, e)}
-                          />
-                        )}
+                      <div className="flex items-center justify-center gap-4">
+                        <MdEdit size={24} className="fill-gray-600 hover:fill-black"/>
+                        <MdDelete size={24} className="fill-gray-600 hover:fill-black"/>
+                        <div>
+                          {products.find(
+                            (likedItem) => likedItem._id == item._id
+                          ) ? (
+                            <IoMdHeart
+                              size={24}
+                              onClick={(e) => handleDislike(item._id, e)}
+                            />
+                          ) : (
+                            <IoMdHeartEmpty
+                              size={24}
+                              className="hover:fill-gray-500"
+                              onClick={(e) => handleLike(item._id, e)}
+                            />
+                          )}
+                        </div>
                       </div>
                     </div>
                     <h2 className="text-lg">
@@ -237,4 +227,4 @@ function LikedProducts() {
   );
 }
 
-export default LikedProducts;
+export default MyProducts;
