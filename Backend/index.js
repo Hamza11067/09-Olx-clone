@@ -107,6 +107,29 @@ app.post("/dislike-product", (req, res) => {
     });
 });
 
+app.post("/delete-product", (req, res) => {
+  let productId = req.body.productId;
+  let userId = req.body.userId;
+  console.log(productId, userId);
+  
+
+  Products.findOne({ _id: productId })
+    .then((result) => {
+      if (result.addedBy == userId) {
+        Products.deleteOne({ _id: productId })
+          .then((deleteResult) => {
+            if (deleteResult.acknowledged) {
+              res.send({ message: "success"})
+            }
+          // res.send({ message: "Disliked successfully" });
+        });
+      }
+    })
+    .catch(() => {
+      res.send({ message: "server error" });
+    });
+});
+
 // to show liked products on frontend
 app.post("/liked-products", (req, res) => {
   Users.findOne({ _id: req.body.userId })
@@ -205,6 +228,32 @@ app.post("/add-product", upload.single("pimage"), (req, res) => {
     });
 });
 
+app.post("/edit-product", upload.single("pimage"), (req, res) => {
+  const pname = req.body.pname;
+  const pdesc = req.body.pdesc;
+  const price = req.body.price;
+  const pcategory = req.body.pcategory;
+  const pimage = req.file.path;
+  const addedBy = req.body.userId;
+
+  const product = new Products({
+    pname,
+    pdesc,
+    price,
+    pcategory,
+    pimage,
+    addedBy,
+  });
+  product
+    .save()
+    .then(() => {
+      res.send({ message: "saved successfully" });
+    })
+    .catch(() => {
+      res.send({ message: "server error" });
+    });
+});
+
 // to show all product on frontend
 app.get("/get-products", (req, res) => {
   const categoryName = req.query.categoryName;
@@ -237,22 +286,22 @@ app.get("/get-product/:productId", (req, res) => {
 });
 
 app.get("/my-profile/:userId", (req, res) => {
-  const userId = req.params.userId
+  const userId = req.params.userId;
 
   Users.findOne({ _id: userId })
-  .then((result) => {
-    res.send({
-      message: "success",
-      user: {
-        username: result.username,
-        mobile: result.mobile,
-        email: result.email,
-      },
+    .then((result) => {
+      res.send({
+        message: "success",
+        user: {
+          username: result.username,
+          mobile: result.mobile,
+          email: result.email,
+        },
+      });
+    })
+    .catch(() => {
+      res.send({ message: "server error" });
     });
-  })
-  .catch(() => {
-    res.send({ message: "server error" });
-  });
 });
 
 // to show user contact details

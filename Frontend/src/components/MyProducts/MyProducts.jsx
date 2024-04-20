@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import SearchHeader from "../Header/SearchHeader";
 import Categories from "../Categories/Categories";
@@ -102,6 +103,30 @@ function MyProducts() {
     setSearch("");
   };
 
+  const handleDeleteProduct = (productId, e) => {
+    e.stopPropagation();
+    console.log(productId);
+
+    let userId = localStorage.getItem("userId");
+    const data = { userId, productId };
+    const url = "http://localhost:3000/delete-product";
+    axios
+      .post(url, data)
+      .then((res) => {
+        console.log(res.data.message);
+        setIsRefreshed(!isRefreshed);
+        alert("Deleted Successfully");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleEditProduct = (productId, e) => {
+    e.stopPropagation();
+    console.log(productId);
+  };
+
   return (
     <>
       <div className="px-8">
@@ -193,8 +218,18 @@ function MyProducts() {
                         Rs {item.price}
                       </h2>
                       <div className="flex items-center justify-center gap-4">
-                        <MdEdit size={24} className="fill-gray-600 hover:fill-black"/>
-                        <MdDelete size={24} className="fill-gray-600 hover:fill-black"/>
+                        <Link to={`/edit-product/${item._id}`}>
+                          <MdEdit
+                            size={24}
+                            className="fill-gray-600 hover:fill-black"
+                            onClick={(e) => handleEditProduct(item._id, e)}
+                          />
+                        </Link>
+                        <MdDelete
+                          size={24}
+                          className="fill-gray-600 hover:fill-black"
+                          onClick={(e) => handleDeleteProduct(item._id, e)}
+                        />
                         <div>
                           {products.find(
                             (likedItem) => likedItem._id == item._id
