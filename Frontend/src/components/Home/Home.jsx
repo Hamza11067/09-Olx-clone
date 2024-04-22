@@ -6,6 +6,8 @@ import SearchHeader from "../Header/SearchHeader";
 import Categories from "../Categories/Categories";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { IoMdHeart } from "react-icons/io";
+import API_URL from "../../constants.js";
+
 
 function Home() {
   const navigate = useNavigate();
@@ -18,7 +20,7 @@ function Home() {
   console.log(likedProducts);
 
   useEffect(() => {
-    const url = "http://localhost:3000/get-products";
+    const url = API_URL + "/get-products";
     axios
       .get(url)
       .then((res) => {
@@ -31,7 +33,7 @@ function Home() {
       });
 
     let data = { userId: localStorage.getItem("userId") };
-    const url2 = "http://localhost:3000/liked-products";
+    const url2 = API_URL + "/liked-products";
     axios
       .post(url2, data)
       .then((res) => {
@@ -49,7 +51,7 @@ function Home() {
   };
 
   const handleClick = () => {
-    const url = "http://localhost:3000/search?search=" + search;
+    const url = API_URL + "/search?search=" + search;
     axios
       .get(url)
       .then((res) => {
@@ -61,16 +63,6 @@ function Home() {
         console.log("Server Error:", err);
       });
 
-    // let filteredProducts = products.filter((item) => {
-    //   if (
-    //     item.pname.toLowerCase().includes(search.toLowerCase()) ||
-    //     item.pdesc.toLowerCase().includes(search.toLowerCase()) ||
-    //     item.pcategory.toLowerCase().includes(search.toLowerCase())
-    //   ) {
-    //     return item;
-    //   }
-    // });
-    // setcProducts(filteredProducts);
   };
 
   const handleCategory = (value) => {
@@ -88,7 +80,7 @@ function Home() {
 
     let userId = localStorage.getItem("userId");
     const data = { userId, productId };
-    const url = "http://localhost:3000/like-product";
+    const url = API_URL + "/like-product";
     axios
       .post(url, data)
       .then((res) => {
@@ -105,7 +97,7 @@ function Home() {
 
     let userId = localStorage.getItem("userId");
     const data = { userId, productId };
-    const url = "http://localhost:3000/dislike-product";
+    const url = API_URL + "/dislike-product";
     axios
       .post(url, data)
       .then((res) => {

@@ -6,6 +6,8 @@ import SearchHeader from "../Header/SearchHeader";
 import Categories from "../Categories/Categories";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { IoMdHeart } from "react-icons/io";
+import API_URL from "../../constants"
+
 
 function CategoryPage() {
   const params = useParams();
@@ -19,7 +21,7 @@ function CategoryPage() {
 
   useEffect(() => {
     const url =
-      "http://localhost:3000/get-products?categoryName=" + params.categoryName;
+      API_URL + "/get-products?categoryName=" + params.categoryName;
     axios
       .get(url)
       .then((res) => {
@@ -37,7 +39,7 @@ function CategoryPage() {
   };
 
   const handleClick = () => {
-    const url = "http://localhost:3000/search?search=" + search;
+    const url = API_URL +  "/search?search=" + search;
     axios
       .get(url)
       .then((res) => {
@@ -49,44 +51,15 @@ function CategoryPage() {
         console.log("Server Error:", err);
       });
 
-    // let filteredProducts = products.filter((item) => {
-    //   if (
-    //     item.pname.toLowerCase().includes(search.toLowerCase()) ||
-    //     item.pdesc.toLowerCase().includes(search.toLowerCase()) ||
-    //     item.pcategory.toLowerCase().includes(search.toLowerCase())
-    //   ) {
-    //     return item;
-    //   }
-    // });
-    // setcProducts(filteredProducts);
   };
 
-//   const handleCategory = (value) => {
-//     let filteredProducts = products.filter((item) => {
-//       console.log(value, item);
-//       if (item.pcategory.toLowerCase() == value.toLowerCase()) {
-//         return item;
-//       }
-//     });
-//     setcProducts(filteredProducts);
-//   };
-
-  // heart icon functioonality
-  // const [likedProducts, setLikedProducts] = useState({}); // State to store liked products
   const likedProducts = {};
 
   const handleIconClick = (productId) => {
-    // Toggle like status for the clicked product
-    //  setLikedProducts((prevLikedProducts) => ({
-    //   ...prevLikedProducts,
-    //   [productId]: !prevLikedProducts[productId],
-    // }));
-
     let userId = localStorage.getItem("userId");
-    // console.log("productId", productId, "userId", userId);
 
     const data = { userId, productId };
-    const url = "http://localhost:3000/like-product";
+    const url = API_URL + "/like-product";
     axios
       .post(url, data)
       .then((res) => {

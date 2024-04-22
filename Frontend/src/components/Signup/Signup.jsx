@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import API_URL from "../../constants.js";
 
 function Signup() {
   const [username, setUsername] = useState("");
@@ -11,7 +12,7 @@ function Signup() {
   const handleApi = (e) => {
     e.preventDefault();
     const data = { username, password, mobile, email };
-    const url = "http://localhost:3000/signup";
+    const url = API_URL + "/signup";
     axios
       .post(url, data)
       .then((res) => {
@@ -22,7 +23,6 @@ function Signup() {
         console.log(err);
         alert(err);
       });
-    // console.log(data);
     setUsername("");
     setPassword("");
     setMobile("");

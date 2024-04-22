@@ -1,37 +1,23 @@
 import { useEffect, useState } from "react";
-// import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import SearchHeader from "../Header/SearchHeader";
 import Categories from "../Categories/Categories";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { IoMdHeart } from "react-icons/io";
+import API_URL from "../../constants.js";
 
 function LikedProducts() {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
-  // const [likedProducts, setLikedProducts] = useState([]);
   const [cproducts, setcProducts] = useState([]);
   const [search, setSearch] = useState();
   const [isSearched, setIsSearched] = useState(false);
   const [isRefreshed, setIsRefreshed] = useState(false);
-  // console.log(likedProducts);
 
   useEffect(() => {
-    // const url = "http://localhost:3000/get-products";
-    // axios
-    //   .get(url)
-    //   .then((res) => {
-    //     if ((res.data, products)) {
-    //       setProducts(res.data.products);
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-
     let data = { userId: localStorage.getItem("userId") };
-    const url2 = "http://localhost:3000/liked-products";
+    const url2 = API_URL + "/liked-products";
     axios
       .post(url2, data)
       .then((res) => {
@@ -49,7 +35,7 @@ function LikedProducts() {
   };
 
   const handleClick = () => {
-    const url = "http://localhost:3000/search?search=" + search;
+    const url = API_URL + "/search?search=" + search;
     axios
       .get(url)
       .then((res) => {
@@ -78,7 +64,7 @@ function LikedProducts() {
 
     let userId = localStorage.getItem("userId");
     const data = { userId, productId };
-    const url = "http://localhost:3000/like-product";
+    const url = API_URL + "/like-product";
     axios
       .post(url, data)
       .then((res) => {
@@ -95,7 +81,7 @@ function LikedProducts() {
 
     let userId = localStorage.getItem("userId");
     const data = { userId, productId };
-    const url = "http://localhost:3000/dislike-product";
+    const url = API_URL + "/dislike-product";
     axios
       .post(url, data)
       .then((res) => {

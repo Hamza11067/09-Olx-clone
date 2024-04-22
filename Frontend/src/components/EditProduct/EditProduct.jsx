@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import categories from "../Categories/CategoryList";
+import API_URL from "../../constants.js";
+
 
 function EditProduct() {
   const navigate = useNavigate();
@@ -14,7 +16,7 @@ function EditProduct() {
   });
 
   useEffect(() => {
-    const url = "http://localhost:3000/get-product/" + params.productId;
+    const url = API_URL + "/get-product/" + params.productId;
     axios
       .get(url)
       .then((res) => {
@@ -52,7 +54,7 @@ function EditProduct() {
     formData.append("userId", localStorage.getItem("userId"));
     formData.append("productId", params.productId);
 
-    const url = "http://localhost:3000/edit-product";
+    const url = API_URL + "/edit-product";
     axios
       .post(url, formData)
       .then((res) => {

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import API_URL from "../../constants.js";
+
 
 function Login() {
   const navigate = useNavigate();
@@ -9,11 +11,10 @@ function Login() {
   const handleApi = (e) => {
     e.preventDefault();
     const data = { username, password };
-    const url = "http://localhost:3000/login";
+    const url = API_URL + "/login";
     axios
       .post(url, data)
       .then((res) => {
-        // console.log(res.data.message);
         if (res.data.token) {
           localStorage.setItem("token", res.data.token);
           localStorage.setItem("userId", res.data.userId);
@@ -24,7 +25,6 @@ function Login() {
         console.log(err);
         alert(err);
       });
-    // console.log(data);
     setUsername("");
     setPassword("");
   };

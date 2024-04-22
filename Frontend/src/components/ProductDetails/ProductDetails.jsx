@@ -1,15 +1,16 @@
 import { useParams } from "react-router";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import API_URL from "../../constants.js";
+
 
 function ProductDetails() {
   const params = useParams();
   const [product, setProduct] = useState();
   const [user, setUser] = useState();
-  // console.log(user);
 
   useEffect(() => {
-    const url = "http://localhost:3000/get-product/" + params.productId;
+    const url = API_URL + "/get-product/" + params.productId;
     axios
       .get(url)
       .then((res) => {
@@ -21,7 +22,7 @@ function ProductDetails() {
   }, []);
 
   const handleContact = (addedBy) => {
-    const url = "http://localhost:3000/get-user/" + addedBy;
+    const url = API_URL + "/get-user/" + addedBy;
     axios
       .get(url)
       .then((res) => {
@@ -40,7 +41,7 @@ function ProductDetails() {
           <div className="col-span-8">
             <img
               className="h-[500px] w-full object-contain bg-black"
-              src={"http://localhost:3000/" + product.pimage}
+              src={ API_URL + "/" + product.pimage}
               alt="image"
             />
             <div className="p-4 my-4 text-gray-800 border-[1px] border-gray-300 rounded-md">

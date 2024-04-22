@@ -8,6 +8,8 @@ import { IoMdHeartEmpty } from "react-icons/io";
 import { IoMdHeart } from "react-icons/io";
 import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
+import API_URL from "../../constants.js";
+
 
 function MyProducts() {
   const navigate = useNavigate();
@@ -19,7 +21,7 @@ function MyProducts() {
 
   useEffect(() => {
     let data = { userId: localStorage.getItem("userId") };
-    const url2 = "http://localhost:3000/my-products";
+    const url2 = API_URL + "/my-products";
     axios
       .post(url2, data)
       .then((res) => {
@@ -37,7 +39,7 @@ function MyProducts() {
   };
 
   const handleClick = () => {
-    const url = "http://localhost:3000/search?search=" + search;
+    const url = API_URL + "/search?search=" + search;
     axios
       .get(url)
       .then((res) => {
@@ -65,7 +67,7 @@ function MyProducts() {
 
     let userId = localStorage.getItem("userId");
     const data = { userId, productId };
-    const url = "http://localhost:3000/like-product";
+    const url = API_URL + "/like-product";
     axios
       .post(url, data)
       .then((res) => {
@@ -82,7 +84,7 @@ function MyProducts() {
 
     let userId = localStorage.getItem("userId");
     const data = { userId, productId };
-    const url = "http://localhost:3000/dislike-product";
+    const url = API_URL + "/dislike-product";
     axios
       .post(url, data)
       .then((res) => {
@@ -109,7 +111,7 @@ function MyProducts() {
 
     let userId = localStorage.getItem("userId");
     const data = { userId, productId };
-    const url = "http://localhost:3000/delete-product";
+    const url = API_URL + "/delete-product";
     axios
       .post(url, data)
       .then((res) => {

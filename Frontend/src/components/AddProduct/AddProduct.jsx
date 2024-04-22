@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import categories from "../Categories/CategoryList";
+import API_URL from "../../constants.js";
 
 function AddProduct() {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ function AddProduct() {
     formData.append("pimage", pimage);
     formData.append("userId", localStorage.getItem("userId"));
 
-    const url = "http://localhost:3000/add-product";
+    const url = API_URL + "/add-product";
     axios
       .post(url, formData)
       .then((res) => {
