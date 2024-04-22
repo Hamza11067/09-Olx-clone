@@ -5,8 +5,6 @@ import "./index.css";
 import AddProduct from "./components/AddProduct/AddProduct.jsx";
 import Home from "./components/Home/Home.jsx";
 import LikedProducts from "./components/LikedProducts/LikedProducts.jsx";
-import Motors from "./components/Motors/Motors.jsx";
-import Property from "./components/Property/Property.jsx";
 import Login from "./components/Login/Login.jsx";
 import Signup from "./components/Signup/Signup.jsx";
 import CategoryPage from "./components/Categories/CategoryPage.jsx";
@@ -30,8 +28,6 @@ const router = createBrowserRouter(
       <Route path="liked-products" element={<LikedProducts />} />
       <Route path="my-products" element={<MyProducts />} />
       <Route path="my-profile/:userId" element={<MyProfile />} />
-      <Route path="motors" element={<Motors />} />
-      <Route path="property" element={<Property />} />
       <Route path="login" element={<Login />} />
       <Route path="signup" element={<Signup />} />
       <Route path="add-product" element={<AddProduct />} />

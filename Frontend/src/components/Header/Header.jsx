@@ -18,7 +18,7 @@ function Header() {
           </svg>
         </Link>
         <Link
-          to="/motors"
+          to="/category/Cars"
           id="nav-link"
           className="route-link flex items-center gap-2"
         >
@@ -38,7 +38,7 @@ function Header() {
           <h2 className="font-bold text-sm">Motors</h2>
         </Link>
         <Link
-          to="/property"
+          to="/category/Houses"
           id="nav-link"
           className="route-link flex items-center gap-2"
         >

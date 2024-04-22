@@ -111,16 +111,14 @@ app.post("/delete-product", (req, res) => {
   let productId = req.body.productId;
   let userId = req.body.userId;
   console.log(productId, userId);
-  
 
   Products.findOne({ _id: productId })
     .then((result) => {
       if (result.addedBy == userId) {
-        Products.deleteOne({ _id: productId })
-          .then((deleteResult) => {
-            if (deleteResult.acknowledged) {
-              res.send({ message: "success"})
-            }
+        Products.deleteOne({ _id: productId }).then((deleteResult) => {
+          if (deleteResult.acknowledged) {
+            res.send({ message: "success" });
+          }
           // res.send({ message: "Disliked successfully" });
         });
       }
@@ -229,24 +227,37 @@ app.post("/add-product", upload.single("pimage"), (req, res) => {
 });
 
 app.post("/edit-product", upload.single("pimage"), (req, res) => {
+  console.log(req.body);
+  console.log(req.file);
+
   const pname = req.body.pname;
   const pdesc = req.body.pdesc;
   const price = req.body.price;
   const pcategory = req.body.pcategory;
   const pimage = req.file.path;
   const addedBy = req.body.userId;
+  const productId = req.body.productId;
 
-  const product = new Products({
-    pname,
-    pdesc,
-    price,
-    pcategory,
-    pimage,
-    addedBy,
-  });
-  product
-    .save()
-    .then(() => {
+  let editObj = {};
+
+  if (pname) {
+    editObj.pname = pname;
+  }
+  if (pdesc) {
+    editObj.pdesc = pdesc;
+  }
+  if (price) {
+    editObj.price = price;
+  }
+  if (pcategory) {
+    editObj.pcategory = pcategory;
+  }
+  if (pimage) {
+    editObj.pimage = pimage;
+  }
+  
+  Products.updateOne({ _id: productId}, editObj, { new: true})
+    .then((result) => {
       res.send({ message: "saved successfully" });
     })
     .catch(() => {

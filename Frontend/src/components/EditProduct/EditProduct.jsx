@@ -50,6 +50,7 @@ function EditProduct() {
     formData.append("pcategory", pcategory);
     formData.append("pimage", pimage);
     formData.append("userId", localStorage.getItem("userId"));
+    formData.append("productId", params.productId);
 
     const url = "http://localhost:3000/edit-product";
     axios
@@ -58,17 +59,12 @@ function EditProduct() {
         console.log(res);
         if (res.data.message) {
           alert(res.data.message);
+          navigate("/my-products");
         }
       })
       .catch((err) => {
         console.log(err);
       });
-
-    // clearing form data
-    setPname("");
-    setPdesc("");
-    setPrice("");
-    setPimage(null);
   };
 
   return (
@@ -153,14 +149,13 @@ function EditProduct() {
           onChange={(e) => {
             setPimage(e.target.files[0]);
           }}
-          required
+          // required
         />
         <img
           src={`http://localhost:3000/${poldImage}`}
           alt="img"
           className="w-[80px]"
         />
-        {/* Displaying the name of the selected file... actually I didn't dispalyed it just to avoid red error bullshit*/}
         {pimage && <p></p>}
         <button
           type="submit"
