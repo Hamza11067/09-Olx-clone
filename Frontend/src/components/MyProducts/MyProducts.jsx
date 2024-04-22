@@ -211,7 +211,7 @@ function MyProducts() {
                 >
                   <img
                     className="inline-block w-full h-[200px] object-cover"
-                    src={"http://localhost:3000/" + item.pimage}
+                    src={API_URL + "/" + item.pimage}
                     alt="img"
                   />
                   <div className="text-left p-4">
