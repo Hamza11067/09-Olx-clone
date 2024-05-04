@@ -36,7 +36,7 @@ mongoose.connect(
 
 
 app.get("/", (req, res) => {
-  res.send("Hello World! from Hamza");
+  res.send("Hello World! from Hamza Khalid.");
 });
 
 app.get("/search", productController.search);
