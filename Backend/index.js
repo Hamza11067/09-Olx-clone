@@ -39,6 +39,10 @@ app.get("/", (req, res) => {
   res.send("Hello World! from Hamza Khalid.");
 });
 
+app.get("/ping", (req, res) => {
+  res.send("pong");
+});
+
 app.get("/search", productController.search);
 app.post("/like-product", userController.likeProduct);
 app.post("/dislike-product", userController.disLikeProduct);
